@@ -12,12 +12,14 @@ char *read_line(void)
 	ssize_t read;
 
 	buffsize = 1024;
+	buffer = malloc(buffsize);
 	/* Prompt command from user */
     read = getline(&buffer, &buffsize, stdin);
 
 	/* Handle EOF condition */
 	if (read == -1)
 	{
+		free(buffer);
 		return (NULL);
 	}
 
