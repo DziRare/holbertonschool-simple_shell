@@ -3,20 +3,20 @@
 #include <unistd.h>
 
 /**
- * main - execve
+ * execute_command - Run commands
  *
  * Return: Always 0
  */
-int main(void)
+int execute_command(char *command)
 {
-	char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
 	char *env_args[] = {"PATH=/bin/", NULL};
+	char *argv[] = {NULL, NULL};
 
-	printf("Before execve\n");
+	argv[0] = command;
+	printf("%s\n", argv[0]);
 	if (execve(argv[0], argv, env_args) == -1)
 	{
 		perror("Error:");
 	}
-	printf("After execve\n");
 	return (0);
 }

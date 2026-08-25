@@ -3,23 +3,28 @@
 #include <stdlib.h>
 
 /**
- * main - entry point of function
+ * read_line - Retrieves user input
  */
-int main(void)
+char *read_line(void)
 {
     char *buffer;
-    size_t buffsize = 32;
+    size_t buffsize;
+	ssize_t read;
 
-    buffer = malloc(buffsize * sizeof(char));
-    if( buffer == NULL)
-    {
-        perror("Unable to allocate buffer");
-		exit(1);
+	//Prompt command from user
+    printf("( ͡° ͜ʖ ͡°)_/¯ ");
+    read = getline(&buffer, &buffsize, stdin);
+
+	//Remove newline if present
+	if (read != -1) {
+        if (buffer[read - 1] == '\n') {
+            buffer[read - 1] = '\0';
+            read--;
+        }
     }
 
-    printf("$ ");
-    getline(&buffer, &buffsize, stdin);
-    printf("%s", buffer);
+	//Debugging: Check what's being added to the buffer
+    printf("%s\n", buffer);
 
-    return(0);
+    return(buffer);
 }
