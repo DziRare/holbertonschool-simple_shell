@@ -15,13 +15,18 @@ char *read_line(void)
 	/* Prompt command from user */
     read = getline(&buffer, &buffsize, stdin);
 
+	/* Handle EOF condition */
+	if (read == -1)
+	{
+		return (NULL);
+	}
+
 	/* Remove newline if present */
-	if (read != -1) {
-        if (buffer[read - 1] == '\n') {
-            buffer[read - 1] = '\0';
-            read--;
-        }
-    }
+	if (buffer[read - 1] == '\n') 
+	{
+		buffer[read - 1] = '\0';
+		read--;
+	}
 
     return(buffer);
 }
