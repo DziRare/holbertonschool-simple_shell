@@ -13,7 +13,6 @@ int execute_command(char *command)
 	char *argv[] = {NULL, NULL};
 
 	argv[0] = command;
-	printf("%s\n", argv[0]);
 	if (execve(argv[0], argv, env_args) == -1)
 	{
 		perror("Error:");

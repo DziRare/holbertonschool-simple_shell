@@ -13,9 +13,45 @@
 int main(void)
 {
 	char *line;
+	int running;
+	pid_t child_pid;
+	int status;
 
-	line = read_line();
-	execute_command(line);
+	running = 1;
+	while (running)
+	{
+		child_pid = fork();
+		if (child_pid == -1)
+		{
+			perror("Error: ");
+			return (1);
+		}
+
+		/* Run shell via child process  */
+		if (child_pid == 0)
+		{
+			printf("( ͡° ͜ʖ ͡°)_/¯ ");
+			line = read_line();
+			if (strcmp(line, "exit") == 0)
+			{
+				printf("Closing Shell!\n");
+				return (1);
+			}
+			execute_command(line);
+			return (0);
+		}
+		else
+		{
+			wait(&status);
+
+			/* Close shell if exit command is given  */
+			if (status == 256)
+			{
+				printf("Goodbye!!\n");
+				return (0);
+			}
+		}
+	}
 
 	return (0);
 }
