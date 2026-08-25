@@ -32,7 +32,7 @@ int main(void)
 		{
 			printf("( ͡° ͜ʖ ͡°)_/¯ ");
 			line = read_line();
-			if (strcmp(line, "exit") == 0)
+			if (strcmp(line, "exit") == 0 || EOF)
 			{
 				printf("Closing Shell!\n");
 				return (1);
