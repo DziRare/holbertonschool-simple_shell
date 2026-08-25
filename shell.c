@@ -30,11 +30,15 @@ int main(void)
 		/* Run shell via child process  */
 		if (child_pid == 0)
 		{
-			printf("( ͡° ͜ʖ ͡°)_/¯ ");
+			/* Check STDOUT is a tty */
+			if (isatty(STDIN_FILENO))
+			{
+				printf("( ͡° ͜ʖ ͡°)_/¯ ");
+			}
 			line = read_line();
 			if (line == NULL || strcmp(line, "exit") == 0)
 			{
-				printf("Closing Shell!\n");
+				free(line);
 				return (1);
 			}
 			execute_command(line);
@@ -47,7 +51,11 @@ int main(void)
 			/* Close shell if exit command is given  */
 			if (status == 256)
 			{
-				printf("Goodbye!!\n");
+				if (isatty(STDIN_FILENO))
+				{
+					printf("Closing Shell!\n");
+					printf("Goodbye!!\n");
+				}
 				return (0);
 			}
 		}
