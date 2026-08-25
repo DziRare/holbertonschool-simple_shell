@@ -11,6 +11,7 @@ char *read_line(void)
     size_t buffsize;
 	ssize_t read;
 
+	buffsize = 1024;
 	/* Prompt command from user */
     read = getline(&buffer, &buffsize, stdin);
 
