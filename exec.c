@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 /**
  * execute_command - Run commands
@@ -10,7 +11,7 @@
  */
 int execute_command(char *command)
 {
-	pid_t grandchild;
+	pid_t child;
 	int status;
 
 	char *env_args[] = {"PATH=/bin/", NULL};
@@ -18,23 +19,29 @@ int execute_command(char *command)
 
 	argv[0] = command;
 	
-	grandchild = fork();
-	if (grandchild == -1)
+	child = fork();
+	if (child == -1)
 	{
-		perror("Error: ");
+		perror("Error");
 		return (1);
 	}
 
-	if (grandchild == 0)
+	if (child == 0)
 	{
 		if (execve(argv[0], argv, env_args) == -1)
 		{
-			perror("Error:");
+			perror("Error");
+			exit(1);
 		}
 	}
 	else
 	{
 		wait(&status);
+		/* Check STDOUT is a tty */
+		if (isatty(STDIN_FILENO))
+		{
+			printf("( ͡° ͜ʖ ͡°)_/¯ ");
+		}
 	}
 
 	return (0);
