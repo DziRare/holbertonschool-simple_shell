@@ -42,6 +42,7 @@ int main(void)
 				return (1);
 			}
 			execute_command(line);
+			free(line);
 			return (0);
 		}
 		else
