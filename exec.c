@@ -30,6 +30,7 @@ int execute_command(char *command)
 		if (execve(argv[0], argv, env_args) == -1)
 		{
 			perror("Error:");
+			exit(1);
 		}
 	}
 	else
