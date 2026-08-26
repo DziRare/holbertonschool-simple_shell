@@ -30,11 +30,6 @@ int main(void)
 		/* Run shell via child process  */
 		if (child_pid == 0)
 		{
-			/* Check STDOUT is a tty */
-			if (isatty(STDIN_FILENO))
-			{
-				printf("( ͡° ͜ʖ ͡°)_/¯ ");
-			}
 			line = read_line();
 			if (line == NULL || strcmp(line, "exit") == 0)
 			{

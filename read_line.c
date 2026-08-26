@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "main.h"
 
 /**
  * read_line - Retrieves user input
@@ -13,22 +14,33 @@ char *read_line(void)
 
 	buffsize = 0;
 	buffer = NULL;
+
+	/* Check STDOUT is a tty */
+	if (isatty(STDIN_FILENO))
+	{
+		printf("( ͡° ͜ʖ ͡°)_/¯ ");
+	}
+
 	/* Prompt command from user */
-    read = getline(&buffer, &buffsize, stdin);
-
-	/* Handle EOF condition */
-	if (read == -1)
+    while ((read = getline(&buffer, &buffsize, stdin)) != -1)
 	{
-		free(buffer);
-		return (NULL);
+		/* Check STDOUT is a tty */
+		if (isatty(STDIN_FILENO))
+		{
+			printf("( ͡° ͜ʖ ͡°)_/¯ ");
+		}
+
+		/* Remove newline if present */
+		if (buffer[read - 1] == '\n') 
+		{
+			buffer[read - 1] = '\0';
+			read--;
+		}
+		execute_command(buffer);
 	}
 
-	/* Remove newline if present */
-	if (buffer[read - 1] == '\n') 
-	{
-		buffer[read - 1] = '\0';
-		read--;
-	}
+	free(buffer);
+	return (NULL);
 
     return(buffer);
 }
