@@ -31,7 +31,7 @@ char *read_line(void)
 		}
 
 		/* Remove newline if present */
-		if (buffer[read - 1] == '\n') 
+		while (buffer[read-1] == '\n' || buffer[read-1] == ' ')
 		{
 			buffer[read - 1] = '\0';
 			read--;
