@@ -7,17 +7,20 @@
 /**
  * trim - Remove whitespace from the start of string
  */
-void trim(char *s) {
-  
+int trim(char *s) {
+
   	/* Two pointers initially at the beginning */
     int i = 0, j = 0;
 
     /* Skip leading spaces */
-    while (s[i] == ' ') i++; 
+    while (s[i] == ' ') i++;
 
     /* iShift the characters of string to remove */
   	/* leading spaces */
-    while ((s[j++] = s[i++]));
+    while ((s[j++] = s[i++]))
+		;
+	
+	return(i-j);
 }
 
 /**
@@ -28,9 +31,11 @@ char *read_line(void)
     char *buffer;
     size_t buffsize;
 	ssize_t read;
+	int trim_count;
 
 	buffsize = 0;
 	buffer = NULL;
+	trim_count = 0;
 
 	/* Check STDOUT is a tty */
 	if (isatty(STDIN_FILENO))
@@ -41,14 +46,8 @@ char *read_line(void)
 	/* Prompt command from user */
     while ((read = getline(&buffer, &buffsize, stdin)) != -1)
 	{
-		/* Remove newline and trailing whitespace if present */
-		while (buffer[read-1] == '\n' || buffer[read-1] == ' ')
-		{
-			buffer[read - 1] = '\0';
-			read--;
-		}
-		trim(buffer);
-		if (buffer[0] == '\0')
+		trim_count = trim(buffer);
+		if (buffer[0] == '\0' || buffer[0] == '\n')
 		{
 			/* Check STDOUT is a tty */
 			if (isatty(STDIN_FILENO))
@@ -57,8 +56,14 @@ char *read_line(void)
 			}
 			continue;
 		}
+		/* Remove newline and trailing whitespace if present */
+		while (buffer[read-1-trim_count] == '\n' || buffer[read-1-trim_count] == ' ')
+		{
+			buffer[read - 1 - trim_count] = '\0';
+			read--;
+		}
 		/* Check EOF and exit condition */
-		else if (read == 0 || buffer == NULL)
+		if (read == 0 || buffer == NULL)
 		{
 			free(buffer);
 			return (NULL);
