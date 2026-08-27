@@ -54,7 +54,7 @@ int execute_command(char *command)
 	i = 0;
 	size = 1;
 
-	while (command[i] != '\0')
+	while (command[i] != '\0' && command != NULL)
 	{
 		if (command[i] == ' ')
 		{

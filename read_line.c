@@ -48,9 +48,22 @@ char *read_line(void)
 			read--;
 		}
 		trim(buffer);
-
+		if (buffer[0] == '\0')
+		{
+			/* Check STDOUT is a tty */
+			if (isatty(STDIN_FILENO))
+			{
+				printf("( ͡° ͜ʖ ͡°)_/¯ ");
+			}
+			continue;
+		}
 		/* Check EOF and exit condition */
-		if (read == 0 || buffer == NULL || strcmp(buffer, "exit") == 0)
+		else if (read == 0 || buffer == NULL)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		else if (strcmp(buffer, "exit") == 0)
 		{
 			free(buffer);
 			return (NULL);
