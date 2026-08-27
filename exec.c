@@ -86,6 +86,7 @@ int execute_command(char *command)
 	}
 	else
 	{
+		free(input);
 		wait(&status);
 		/* Check STDOUT is a tty */
 		if (isatty(STDIN_FILENO))
