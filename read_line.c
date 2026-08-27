@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "main.h"
 #include <string.h>
+#include "main.h"
 
 /**
  * read_line - Retrieves user input
@@ -38,7 +38,7 @@ char *read_line(void)
 			return (NULL);
 		}
 		
-		execute_command(buffer);
+		execute_command(strtok(buffer, "\0"));
 	}
 	free(buffer);
     return(NULL);
