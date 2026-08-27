@@ -9,14 +9,14 @@
  */
 void trim(char *s) {
   
-  	// Two pointers initially at the beginning
+  	/* Two pointers initially at the beginning */
     int i = 0, j = 0;
 
-    // Skip leading spaces
+    /* Skip leading spaces */
     while (s[i] == ' ') i++; 
 
-    // iShift the characters of string to remove
-  	// leading spaces
+    /* iShift the characters of string to remove */
+  	/* leading spaces */
     while ((s[j++] = s[i++]));
 }
 
