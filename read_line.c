@@ -44,38 +44,25 @@ char *read_line(void)
 	}
 
 	/* Prompt command from user */
-    while ((read = getline(&buffer, &buffsize, stdin)) != -1)
+	read = getline(&buffer, &buffsize, stdin);
+	if (read == -1)
 	{
-		trim_count = trim(buffer);
-		if (buffer[0] == '\0' || buffer[0] == '\n')
-		{
-			/* Check STDOUT is a tty */
-			if (isatty(STDIN_FILENO))
-			{
-				printf("( ͡° ͜ʖ ͡°)_/¯ ");
-			}
-			continue;
-		}
-		/* Remove newline and trailing whitespace if present */
-		while (buffer[read-1-trim_count] == '\n' || buffer[read-1-trim_count] == ' ')
-		{
-			buffer[read - 1 - trim_count] = '\0';
-			read--;
-		}
-		/* Check EOF and exit condition */
-		if (read == 0 || buffer == NULL)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		else if (strcmp(buffer, "exit") == 0)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		
-		execute_command(strtok(buffer, "\0"));
+		return (NULL);
 	}
-	free(buffer);
-    return(NULL);
+
+	if (read == 0)
+	{
+		return ("");
+	}
+
+	trim_count = trim(buffer);
+
+	/* Remove newline and trailing whitespace if present */
+	while (buffer[read-1-trim_count] == '\n' || buffer[read-1-trim_count] == ' ')
+	{
+		buffer[read - 1 - trim_count] = '\0';
+		read--;
+	}
+
+	return(buffer);
 }

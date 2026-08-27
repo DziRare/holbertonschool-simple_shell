@@ -13,24 +13,32 @@
 int main(void)
 {
 	char *line;
-	int running;
-
-	running = 1;
-	while (running)
+	
+	while ((line = read_line()) != NULL)
 	{
-		line = read_line();
-		if (line == NULL)
+		if (strcmp(line, "") == 0)
 		{
-			free(line);
+			continue;
+		}
+		if (strcmp(line, "exit") == 0)
+		{
 			if (isatty(STDIN_FILENO))
 			{
 				printf("exit\n");
-				return (0);
 			}
+
+			free(line);
 			return (0);
 		}
-	
+		execute_command(strtok(line, "\0"));
+		free(line);
 	}
 
+	if (isatty(STDIN_FILENO))
+	{
+		printf("exit\n");
+	}
+
+	free(line);
 	return (0);
 }

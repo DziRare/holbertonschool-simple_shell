@@ -88,11 +88,6 @@ int execute_command(char *command)
 	{
 		free(input);
 		wait(&status);
-		/* Check STDOUT is a tty */
-		if (isatty(STDIN_FILENO))
-		{
-			printf("( ͡° ͜ʖ ͡°)_/¯ ");
-		}
 	}
 
 	return (0);
