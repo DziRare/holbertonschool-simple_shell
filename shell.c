@@ -24,8 +24,7 @@ int main(void)
 			free(line);
 			if (isatty(STDIN_FILENO))
 			{
-				printf("Closing Shell!\n");
-				printf("Goodbye!!\n");
+				printf("exit\n");
 				return (0);
 			}
 			return (0);
