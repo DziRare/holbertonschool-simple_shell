@@ -14,45 +14,23 @@ int main(void)
 {
 	char *line;
 	int running;
-	pid_t child_pid;
-	int status;
 
 	running = 1;
 	while (running)
 	{
-		child_pid = fork();
-		if (child_pid == -1)
+		line = read_line();
+		if (line == NULL)
 		{
-			perror("Error: ");
-			return (1);
-		}
-
-		/* Run shell via child process  */
-		if (child_pid == 0)
-		{
-			line = read_line();
-			if (line == NULL || strcmp(line, "exit") == 0)
+			free(line);
+			if (isatty(STDIN_FILENO))
 			{
-				free(line);
-				return (1);
+				printf("Closing Shell!\n");
+				printf("Goodbye!!\n");
+				return (0);
 			}
 			return (0);
 		}
-		else
-		{
-			wait(&status);
-
-			/* Close shell if exit command is given  */
-			if (status == 256)
-			{
-				if (isatty(STDIN_FILENO))
-				{
-					printf("Closing Shell!\n");
-					printf("Goodbye!!\n");
-				}
-				return (0);
-			}
-		}
+	
 	}
 
 	return (0);
