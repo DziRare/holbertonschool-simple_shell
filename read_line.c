@@ -47,15 +47,17 @@ char *read_line(void)
 	read = getline(&buffer, &buffsize, stdin);
 	if (read == -1)
 	{
+		free(buffer);
 		return (NULL);
 	}
 
-	if (read == 0)
+	trim_count = trim(buffer);
+
+	if (read == 0 || buffer[0] == '\0' || buffer[0] == '\n')
 	{
+		free(buffer);
 		return ("");
 	}
-
-	trim_count = trim(buffer);
 
 	/* Remove newline and trailing whitespace if present */
 	while (buffer[read-1-trim_count] == '\n' || buffer[read-1-trim_count] == ' ')
