@@ -54,6 +54,7 @@ int execute_command(char *command)
 
 	i = 0;
 	size = 1;
+	full_path = NULL;
 
 	while (command[i] != '\0' && command != NULL)
 	{
@@ -68,6 +69,7 @@ int execute_command(char *command)
 	input = split_string(size, command);	
 	
 	full_path = path_checker(input[0]);
+
 	if (full_path == NULL)
 	{
 		printf("hsh: command not found: %s\n", input[0]);
