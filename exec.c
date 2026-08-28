@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 /**
  * split_string - splits string into array
@@ -49,8 +50,9 @@ int execute_command(char *command)
 	int i;
 	int size;
 	char **input;
-	char *env[] = {"PATH=/bin/", NULL};
 	char *full_path;
+	struct stat st;
+	char *env[] = {"PATH=/bin/", NULL};
 
 	i = 0;
 	size = 1;
@@ -79,6 +81,14 @@ int execute_command(char *command)
 	{
 		full_path = input[0];
 	}
+
+	if (stat(full_path, &st) != 0)
+	{
+		printf("hsh: command not found: %s\n", input[0]);
+		free(input);
+		return (0);
+	}
+
 	child = fork();
 	if (child == -1)
 	{
