@@ -50,6 +50,7 @@ int execute_command(char *command)
 	int size;
 	char **input;
 	char *env[] = {"PATH=/bin/", NULL};
+	char *full_path;
 
 	i = 0;
 	size = 1;
@@ -64,8 +65,17 @@ int execute_command(char *command)
 	}
 	size = size + 1;
 
-	input = split_string(size, command);
+	input = split_string(size, command);	
 	
+	if (input[0][0] != '/')
+	{
+		if ((full_path = path_handler(input[0])) == NULL)
+			return (0);
+	}
+	else
+	{
+		full_path = input[0];
+	}
 	child = fork();
 	if (child == -1)
 	{
@@ -76,7 +86,7 @@ int execute_command(char *command)
 
 	if (child == 0)
 	{
-		if (execve(input[0], input, env) == -1)
+		if (execve(full_path, input, env) == -1)
 		{
 			perror("Error");
 			free(command);
@@ -86,6 +96,8 @@ int execute_command(char *command)
 	}
 	else
 	{
+		if (input[0][0] != '/')
+			free(full_path);
 		free(input);
 		wait(&status);
 	}

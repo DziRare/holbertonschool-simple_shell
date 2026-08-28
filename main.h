@@ -4,7 +4,7 @@
 char **split_string(int size, char *string);
 char *read_line(void);
 int execute_command(char *command);
-int _which(char *filname, ...);
+char *path_handler(char *command);
 int fork(void);
 
 #endif /* _SIMPLE_SHELL_H_ */
