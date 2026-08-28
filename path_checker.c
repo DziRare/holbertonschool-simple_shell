@@ -16,7 +16,7 @@ char *path_checker(char *command)
 	char *path;
 	char *full_path;
 	struct stat st;
-	char env[10000];
+	char *env;
 
 	if (command[0] == '/')
 	{
@@ -30,6 +30,7 @@ char *path_checker(char *command)
 	path = NULL;
     while (environ[i] != NULL)
     {
+		env = malloc(sizeof(char) * strlen(environ[i]) + 1);
 		strcpy(env, environ[i]);
 		token = strtok(env, "=");
 		if (strcmp(token, "PATH") == 0)
@@ -38,6 +39,7 @@ char *path_checker(char *command)
 			break;
 		}
         i++;
+		free(env);
     }
 
 	token = strtok(path, ":");
@@ -51,11 +53,13 @@ char *path_checker(char *command)
 
 		if (stat(full_path, &st) == 0)
 		{
+			free(env);
 			return (full_path);
 		}
 
 		token = strtok(NULL, ":");
 		free(full_path);
 	}
+	free(env);
     return (NULL);
 }
