@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include <string.h>
 
 /**
@@ -14,6 +15,7 @@ int main(void)
 {
 	char *line;
 	
+	signal(SIGINT, SIG_IGN);
 	while ((line = read_line()) != NULL)
 	{
 		if (strcmp(line, "") == 0)

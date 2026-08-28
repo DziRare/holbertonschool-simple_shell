@@ -28,6 +28,7 @@ char *path_handler(char *command)
 	}
 	else
 	{
+		free(executable);
 		printf("hsh: command not found: %s\n", command);
 		return (NULL);
 	}

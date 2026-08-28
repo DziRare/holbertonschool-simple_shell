@@ -70,7 +70,10 @@ int execute_command(char *command)
 	if (input[0][0] != '/')
 	{
 		if ((full_path = path_handler(input[0])) == NULL)
+		{
+			free(input);
 			return (0);
+		}
 	}
 	else
 	{
