@@ -98,7 +98,7 @@ int execute_command(char *command)
 	}
 	else
 	{
-		if (input[0][0] != '/')
+		if (strchr(input[0], '/') == NULL)
 			free(full_path);
 		free(input);
 		wait(&status);
