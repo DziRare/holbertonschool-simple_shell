@@ -45,10 +45,12 @@ char *path_checker(char *command)
 		}
         i++;
 		free(env);
+		env = NULL;
     }
 
     if (path == NULL)
     {
+	    free(env);
 	    return (NULL);
     }
 
