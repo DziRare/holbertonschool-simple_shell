@@ -18,11 +18,16 @@ char *path_checker(char *command)
 	struct stat st;
 	char *env;
 
-	if (command[0] == '/')
+	if (strchr(command, '/') != NULL)
 	{
 		if (stat(command, &st) == 0)
 		{
 			return (command);
+		}
+		else
+		{
+			perror("Error");
+			return (NULL);
 		}
 	}
 

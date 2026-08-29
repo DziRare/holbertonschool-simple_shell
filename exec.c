@@ -72,7 +72,8 @@ int execute_command(char *command)
 
 	if (full_path == NULL)
 	{
-		printf("hsh: command not found: %s\n", input[0]);
+		if (strchr(input[0], '/') == NULL)
+			printf("hsh: command not found: %s\n", input[0]);
 		free(input);
 		return (0);
 	}
