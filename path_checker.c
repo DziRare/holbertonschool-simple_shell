@@ -47,6 +47,11 @@ char *path_checker(char *command)
 		free(env);
     }
 
+    if (path == NULL)
+    {
+	    return (NULL);
+    }
+
 	token = strtok(path, ":");
 	while (token != NULL)
 	{
