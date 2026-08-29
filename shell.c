@@ -14,8 +14,12 @@
 int main(void)
 {
 	char *line;
+	int status;
 	
 	signal(SIGINT, SIG_IGN);
+
+	status = 0;
+
 	while ((line = read_line()) != NULL)
 	{
 		if (strcmp(line, "") == 0)
@@ -30,9 +34,9 @@ int main(void)
 			}
 
 			free(line);
-			return (0);
+			return (status);
 		}
-		execute_command(strtok(line, "\0"));
+		status = execute_command(strtok(line, "\0"));
 		free(line);
 	}
 
@@ -42,5 +46,5 @@ int main(void)
 	}
 
 	free(line);
-	return (0);
+	return (status);
 }

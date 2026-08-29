@@ -40,7 +40,7 @@ char **split_string(int size, char *string)
 /**
  * execute_command - Run commands
  *
- * Return: Always 0
+ * Return: status
  */
 int execute_command(char *command)
 {
@@ -72,10 +72,9 @@ int execute_command(char *command)
 
 	if (full_path == NULL)
 	{
-		if (strchr(input[0], '/') == NULL)
-			fprintf(stderr, "./hsh: 1: %s: not found\n", input[0]);
+		fprintf(stderr, "./hsh: 1: %s: not found\n", input[0]);
 		free(input);
-		return (0);
+		return (127);
 	}
 
 	child = fork();
@@ -83,7 +82,7 @@ int execute_command(char *command)
 	{
 		free(input);
 		perror("Error");
-		return (1);
+		return (status);
 	}
 
 	if (child == 0)
@@ -93,7 +92,7 @@ int execute_command(char *command)
 			perror("Error");
 			free(command);
 			free(input);
-			exit(1);
+			return(status);
 		}
 	}
 	else
@@ -104,5 +103,5 @@ int execute_command(char *command)
 		wait(&status);
 	}
 
-	return (0);
+	return (status);
 }
