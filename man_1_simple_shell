@@ -1,1 +1,16 @@
-# Start of an amazing man page
+# HSH(1)
+
+## NAME
+
+hsh - Simple POSIX-compliant command interpreter
+
+## SYNOPSIS
+sh [options]
+
+## DESCRIPTION
+hsh is a simplified version of a POSIX-compliant command interpreter (shell). It is implemented by compiling the files found in [Holberton Simple Shell Repository](https://github.com/DziRare/holbertonschool-simple_shell). Must be compilited in a valid UNIX-like shell.
+
+## FILES
+
+## SEE ALSO
+bash(1), dash(1), ksh(1), tcsh(1), zsh(1), sh(1)
