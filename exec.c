@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 /**
  * split_string - splits string into array
@@ -55,6 +56,7 @@ int execute_command(char *command)
 	i = 0;
 	size = 1;
 	full_path = NULL;
+	status = 0;
 
 	while (command[i] != '\0' && command != NULL)
 	{
@@ -76,7 +78,6 @@ int execute_command(char *command)
 		free(input);
 		return (127);
 	}
-
 	child = fork();
 	if (child == -1)
 	{
@@ -89,6 +90,7 @@ int execute_command(char *command)
 	{
 		if (execve(full_path, input, env) == -1)
 		{
+			printf("%s\n", full_path);
 			perror("Error");
 			free(command);
 			free(input);
@@ -101,7 +103,11 @@ int execute_command(char *command)
 			free(full_path);
 		free(input);
 		wait(&status);
+		if (WIFEXITED(status))
+		{
+			int exit_status = WEXITSTATUS(status);
+			return (exit_status);
+		}
 	}
-
 	return (status);
 }
