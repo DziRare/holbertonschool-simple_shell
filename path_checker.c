@@ -27,7 +27,6 @@ char *path_checker(char *command)
 		}
 		else
 		{
-			perror("Error");
 			return (NULL);
 		}
 	}
