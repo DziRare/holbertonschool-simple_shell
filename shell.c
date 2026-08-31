@@ -47,6 +47,7 @@ int main(void)
 				i = i + 1;
 			}
 			status = 0;
+			continue;
 		}
 		status = execute_command(strtok(line, "\0"));
 		free(line);
