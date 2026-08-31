@@ -5,34 +5,20 @@
 #include "main.h"
 
 /**
- * path_checker - Checks the command against the PATH
- * @command: Instruction user is attempting to perform
+ * path_finder - find path in env variables
  *
- * Return: Full executable path
+ * Return: path if found, NULL otherwise
  */
-char *path_checker(char *command)
+char *path_finder(void)
 {
-	unsigned int i;
-	char *token;
+	int i;
 	char *path;
-	char *full_path;
-	struct stat st;
 	char *env;
-
-	if (strchr(command, '/') != NULL)
-	{
-		if (stat(command, &st) == 0)
-		{
-			return (command);
-		}
-		else
-		{
-			return (NULL);
-		}
-	}
+	char *token;
 
 	i = 0;
 	path = NULL;
+
 	while (environ[i] != NULL)
 	{
 		env = malloc(sizeof(char) * strlen(environ[i]) + 1);
@@ -55,6 +41,37 @@ char *path_checker(char *command)
 	}
 
 	token = strtok(path, ":");
+
+	free(env);
+	return (token);
+}
+
+/**
+ * path_checker - Checks the command against the PATH
+ * @command: Instruction user is attempting to perform
+ *
+ * Return: Full executable path
+ */
+char *path_checker(char *command)
+{
+	char *token;
+	char *full_path;
+	struct stat st;
+
+	if (strchr(command, '/') != NULL)
+	{
+		if (stat(command, &st) == 0)
+		{
+			return (command);
+		}
+		else
+		{
+			return (NULL);
+		}
+	}
+
+	token = path_finder();
+
 	while (token != NULL)
 	{
 		full_path = malloc(sizeof(char) * (strlen(token) + strlen(command) + 2));
@@ -65,13 +82,12 @@ char *path_checker(char *command)
 
 		if (stat(full_path, &st) == 0)
 		{
-			free(env);
 			return (full_path);
 		}
 
 		token = strtok(NULL, ":");
 		free(full_path);
 	}
-	free(env);
+
 	return (NULL);
 }
