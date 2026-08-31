@@ -7,6 +7,33 @@
 #include <errno.h>
 
 /**
+ * array_size - finds the size of the array
+ * @input: input string
+ *
+ * Return: size of array
+ */
+int array_size(char *input)
+{
+	int size;
+	int i;
+
+	i = 0;
+	size = 1;
+
+	while (input[i] != '\0' && input != NULL)
+	{
+		if (input[i] == ' ')
+		{
+			size = size + 1;
+		}
+		i = i + 1;
+	}
+	size = size + 1;
+
+	return (size);
+}
+
+/**
  * split_string - splits string into array
  * @string: string input
  * @size: size of array
@@ -48,29 +75,15 @@ int execute_command(char *command)
 	pid_t child;
 	int status;
 	int exit_status;
-	int i;
 	int size;
 	char **input;
 	char *full_path;
 	char *env[] = {"PATH=/bin/", NULL};
 
-	i = 0;
-	size = 1;
 	full_path = NULL;
 	status = 0;
-
-	while (command[i] != '\0' && command != NULL)
-	{
-		if (command[i] == ' ')
-		{
-			size = size + 1;
-		}
-		i = i + 1;
-	}
-	size = size + 1;
-
+	size = array_size(command);
 	input = split_string(size, command);
-
 	full_path = path_checker(input[0]);
 
 	if (full_path == NULL)
