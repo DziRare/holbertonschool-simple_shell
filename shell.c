@@ -15,6 +15,8 @@ int main(void)
 {
 	char *line;
 	int status;
+	int i;
+	extern char **environ;
 	
 	signal(SIGINT, SIG_IGN);
 
@@ -26,6 +28,7 @@ int main(void)
 		{
 			continue;
 		}
+		i = 0;
 		if (strcmp(line, "exit") == 0)
 		{
 			if (isatty(STDIN_FILENO))
@@ -35,6 +38,15 @@ int main(void)
 
 			free(line);
 			return (status);
+		}
+		else if (strcmp(line, "env") == 0) 
+		{
+			while (environ[i] != NULL)
+			{
+				printf("%s\n", environ[i]);
+				i = i + 1;
+			}
+			status = 0;
 		}
 		status = execute_command(strtok(line, "\0"));
 		free(line);
