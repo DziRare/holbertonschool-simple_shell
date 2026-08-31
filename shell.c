@@ -7,6 +7,22 @@
 #include <string.h>
 
 /**
+ * _get_env - print all environment variables
+ */
+void _get_env(void)
+{
+	int i;
+
+	i = 0;
+
+	while (environ[i] != NULL)
+	{
+		printf("%s\n", environ[i]);
+		i = i + 1;
+	}
+}
+
+/**
  * main - Simple shell runs commands without any argument
  *
  * Return: Always 0
@@ -15,11 +31,9 @@ int main(void)
 {
 	char *line;
 	int status;
-	int i;
-
-	signal(SIGINT, SIG_IGN);
 
 	status = 0;
+	signal(SIGINT, SIG_IGN);
 
 	while ((line = read_line()) != NULL)
 	{
@@ -27,7 +41,6 @@ int main(void)
 		{
 			continue;
 		}
-		i = 0;
 		if (strcmp(line, "exit") == 0)
 		{
 			if (isatty(STDIN_FILENO))
@@ -40,11 +53,7 @@ int main(void)
 		}
 		else if (strcmp(line, "env") == 0)
 		{
-			while (environ[i] != NULL)
-			{
-				printf("%s\n", environ[i]);
-				i = i + 1;
-			}
+			_get_env();
 			status = 0;
 			free(line);
 			continue;
