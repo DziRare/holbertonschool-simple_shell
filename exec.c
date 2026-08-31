@@ -8,45 +8,46 @@
 
 /**
  * split_string - splits string into array
- * @string - string input
- * @size - size of array
+ * @string: string input
+ * @size: size of array
  *
  * Return: array of string, NULL otherwise
  */
 char **split_string(int size, char *string)
 {
-    char **array;
-    char *token;
-    int i;
+	char **array;
+	char *token;
+	int i;
 
-    array = malloc(sizeof(string) * size);
-    if (array == NULL || size == 0)
-    {
-        return (NULL);
-    }
+	array = malloc(sizeof(string) * size);
+	if (array == NULL || size == 0)
+	{
+		return (NULL);
+	}
 
-    token = strtok(string, " ");
-    i = 0;
-    while (i < size - 1)
-    {
-        array[i] = token;
-        token = strtok(NULL, " ");
-        i = i + 1;
-    }
+	token = strtok(string, " ");
+	i = 0;
+	while (i < size - 1)
+	{
+		array[i] = token;
+		token = strtok(NULL, " ");
+		i = i + 1;
+	}
 	array[i] = NULL;
 
-    return array;
+	return (array);
 }
 
 /**
  * execute_command - Run commands
- *
+ * @command: Command that user is attempting to run
  * Return: status
  */
 int execute_command(char *command)
 {
 	pid_t child;
 	int status;
+	int exit_status;
 	int i;
 	int size;
 	char **input;
@@ -68,8 +69,8 @@ int execute_command(char *command)
 	}
 	size = size + 1;
 
-	input = split_string(size, command);	
-	
+	input = split_string(size, command);
+
 	full_path = path_checker(input[0]);
 
 	if (full_path == NULL)
@@ -94,7 +95,7 @@ int execute_command(char *command)
 			perror("Error");
 			free(command);
 			free(input);
-			return(status);
+			return (status);
 		}
 	}
 	else
@@ -105,7 +106,7 @@ int execute_command(char *command)
 		wait(&status);
 		if (WIFEXITED(status))
 		{
-			int exit_status = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 			return (exit_status);
 		}
 	}

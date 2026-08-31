@@ -8,4 +8,6 @@ char *path_handler(char *command);
 char *path_checker(char *command);
 int fork(void);
 
+extern char **environ;
+
 #endif /* _SIMPLE_SHELL_H_ */

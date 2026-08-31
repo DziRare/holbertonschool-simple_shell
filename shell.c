@@ -16,8 +16,7 @@ int main(void)
 	char *line;
 	int status;
 	int i;
-	extern char **environ;
-	
+
 	signal(SIGINT, SIG_IGN);
 
 	status = 0;
@@ -39,7 +38,7 @@ int main(void)
 			free(line);
 			return (status);
 		}
-		else if (strcmp(line, "env") == 0) 
+		else if (strcmp(line, "env") == 0)
 		{
 			while (environ[i] != NULL)
 			{

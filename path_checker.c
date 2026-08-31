@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include "main.h"
 
 /**
  * path_checker - Checks the command against the PATH
+ * @command: Instruction user is attempting to perform
  *
  * Return: Full executable path
  */
 char *path_checker(char *command)
 {
-    unsigned int i;
-	extern char **environ;
+	unsigned int i;
 	char *token;
 	char *path;
 	char *full_path;
@@ -31,10 +32,10 @@ char *path_checker(char *command)
 		}
 	}
 
-    i = 0;
+	i = 0;
 	path = NULL;
-    while (environ[i] != NULL)
-    {
+	while (environ[i] != NULL)
+	{
 		env = malloc(sizeof(char) * strlen(environ[i]) + 1);
 		strcpy(env, environ[i]);
 		token = strtok(env, "=");
@@ -43,16 +44,16 @@ char *path_checker(char *command)
 			path = strtok(NULL, "=");
 			break;
 		}
-        i++;
+		i++;
 		free(env);
 		env = NULL;
-    }
+	}
 
-    if (path == NULL)
-    {
-	    free(env);
-	    return (NULL);
-    }
+	if (path == NULL)
+	{
+		free(env);
+		return (NULL);
+	}
 
 	token = strtok(path, ":");
 	while (token != NULL)
@@ -73,5 +74,5 @@ char *path_checker(char *command)
 		free(full_path);
 	}
 	free(env);
-    return (NULL);
+	return (NULL);
 }

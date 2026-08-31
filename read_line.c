@@ -6,30 +6,37 @@
 
 /**
  * trim - Remove whitespace from the start of string
+ * @s: String to be trimmed
+ *
+ * Return: Amount of space removed from string
  */
-int trim(char *s) {
+int trim(char *s)
+{
 
-  	/* Two pointers initially at the beginning */
-    int i = 0, j = 0;
+	/* Two pointers initially at the beginning */
+	int i = 0, j = 0;
 
-    /* Skip leading spaces */
-    while (s[i] == ' ') i++;
+	/* Skip leading spaces */
+	while (s[i] == ' ')
+		i++;
 
-    /* iShift the characters of string to remove */
-  	/* leading spaces */
-    while ((s[j++] = s[i++]))
+	/* iShift the characters of string to remove */
+	/* leading spaces */
+	while ((s[j++] = s[i++]))
 		;
-	
-	return(i-j);
+
+	return (i - j);
 }
 
 /**
  * read_line - Retrieves user input
+ *
+ * Return: The command and it's arguments or NULL on failure
  */
 char *read_line(void)
 {
-    char *buffer;
-    size_t buffsize;
+	char *buffer;
+	size_t buffsize;
 	ssize_t read;
 	int trim_count;
 
@@ -51,7 +58,7 @@ char *read_line(void)
 		return (NULL);
 	}
 
-	trim_count = trim(buffer);
+	trim_count = trim(buffer) + 1;
 
 	if (read == 0 || buffer[0] == '\0' || buffer[0] == '\n')
 	{
@@ -60,11 +67,11 @@ char *read_line(void)
 	}
 
 	/* Remove newline and trailing whitespace if present */
-	while (buffer[read-1-trim_count] == '\n' || buffer[read-1-trim_count] == ' ')
+	while (buffer[read - trim_count] == '\n' || buffer[read - trim_count] == ' ')
 	{
-		buffer[read - 1 - trim_count] = '\0';
+		buffer[read - trim_count] = '\0';
 		read--;
 	}
 
-	return(buffer);
+	return (buffer);
 }
