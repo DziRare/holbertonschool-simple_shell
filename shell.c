@@ -7,7 +7,11 @@
 #include <string.h>
 
 /**
- * _get_env - print all environment variables
+ * built_ins - checks and executes command if built
+ * @line: input string
+ * @status: exit status
+ *
+ * Return: status code
  */
 int built_ins(char *line, int *status)
 {
@@ -56,7 +60,7 @@ int main(void)
 	{
 		if (strcmp(line, "") == 0)
 			continue;
-		
+
 		if (built_ins(line, &status))
 			continue;
 
