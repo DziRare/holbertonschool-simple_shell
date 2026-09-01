@@ -147,6 +147,5 @@ char **path_checker(char *input)
 		path = strtok(NULL, ":");
 		free(full_path);
 	}
-
 	return (NULL);
 }

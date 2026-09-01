@@ -33,7 +33,6 @@ int execute_command(char **args)
 	{
 		if (execve(args[0], args, env) == -1)
 		{
-			printf("%s\n", full_path);
 			perror("Error");
 			free(args[0]);
 			free(args);
@@ -43,7 +42,7 @@ int execute_command(char **args)
 	else
 	{
 		if (strchr(args[0], '/') == NULL)
-			free(agrs[0]);
+			free(args[0]);
 		free(args);
 		wait(&status);
 		if (WIFEXITED(status))
