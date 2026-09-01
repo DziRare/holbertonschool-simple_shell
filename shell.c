@@ -59,7 +59,7 @@ int main(void)
 		
 		if (built_ins(line, &status))
 			continue;
-		printf("Executing Command!\n");
+
 		status = execute_command(strtok(line, "\0"));
 		free(line);
 	}
