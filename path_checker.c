@@ -5,6 +5,65 @@
 #include "main.h"
 
 /**
+ * array_size - finds the size of the array
+ * @input: input string
+ *
+ * Return: size of array
+ */
+int array_size(char *input)
+{
+	int size;
+	int i;
+
+	i = 0;
+	size = 1;
+
+	while (input[i] != '\0' && input != NULL)
+	{
+		if (input[i] == ' ')
+		{
+			size = size + 1;
+		}
+		i = i + 1;
+	}
+	size = size + 1;
+
+	return (size);
+}
+
+/**
+ * split_string - splits string into array
+ * @string: string input
+ * @size: size of array
+ *
+ * Return: array of string, NULL otherwise
+ */
+char **split_string(int size, char *string)
+{
+	char **array;
+	char *token;
+	int i;
+
+	array = malloc(sizeof(string) * size);
+	if (array == NULL || size == 0)
+	{
+		return (NULL);
+	}
+
+	token = strtok(string, " ");
+	i = 0;
+	while (i < size - 1)
+	{
+		array[i] = token;
+		token = strtok(NULL, " ");
+		i = i + 1;
+	}
+	array[i] = NULL;
+
+	return (array);
+}
+
+/**
  * path_finder - find path in env variables
  *
  * Return: path if found, NULL otherwise
@@ -49,22 +108,25 @@ char *path_finder(void)
  *
  * Return: Full executable path
  */
-char *path_checker(char *command)
+char **path_checker(char *input)
 {
 	char *path;
+	char **args;
 	char *full_path;
+	char *command;
+	int size;
 	struct stat st;
+
+	size = array_size(input);
+	args = split_string(size, input);
+	command = args[0];
 
 	if (strchr(command, '/') != NULL)
 	{
 		if (stat(command, &st) == 0)
-		{
-			return (command);
-		}
+			return (args);
 		else
-		{
 			return (NULL);
-		}
 	}
 
 	path = path_finder();
@@ -79,9 +141,9 @@ char *path_checker(char *command)
 
 		if (stat(full_path, &st) == 0)
 		{
-			return (full_path);
+			args[0] = full_path;
+			return (args);
 		}
-
 		path = strtok(NULL, ":");
 		free(full_path);
 	}

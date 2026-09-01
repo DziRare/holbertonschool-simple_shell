@@ -6,9 +6,8 @@
 
 char **split_string(int size, char *string);
 char *read_line(void);
-int execute_command(char *command);
-char *path_handler(char *command);
-char *path_checker(char *command);
+int execute_command(char **args);
+char **path_checker(char *input);
 int fork(void);
 
 extern char **environ;
