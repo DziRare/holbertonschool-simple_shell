@@ -9,17 +9,34 @@
 /**
  * _get_env - print all environment variables
  */
-void _get_env(void)
+int built_ins(char *line, int *status)
 {
 	int i;
 
-	i = 0;
-
-	while (environ[i] != NULL)
+	if (strcmp(line, "exit") == 0)
 	{
-		printf("%s\n", environ[i]);
-		i = i + 1;
+		if (isatty(STDIN_FILENO))
+		{
+			printf("exit\n");
+		}
+
+		free(line);
+		exit(*status);
 	}
+	else if (strcmp(line, "env") == 0)
+	{
+		i = 0;
+		while (environ[i] != NULL)
+		{
+			printf("%s\n", environ[i]);
+			i = i + 1;
+		}
+		*status = 0;
+		free(line);
+		return (TRUE);
+	}
+
+	return (FALSE);
 }
 
 /**
@@ -38,34 +55,17 @@ int main(void)
 	while ((line = read_line()) != NULL)
 	{
 		if (strcmp(line, "") == 0)
-		{
 			continue;
-		}
-		if (strcmp(line, "exit") == 0)
-		{
-			if (isatty(STDIN_FILENO))
-			{
-				printf("exit\n");
-			}
-
-			free(line);
-			return (status);
-		}
-		else if (strcmp(line, "env") == 0)
-		{
-			_get_env();
-			status = 0;
-			free(line);
+		
+		if (built_ins(line, &status))
 			continue;
-		}
+		printf("Executing Command!\n");
 		status = execute_command(strtok(line, "\0"));
 		free(line);
 	}
 
 	if (isatty(STDIN_FILENO))
-	{
 		printf("exit\n");
-	}
 
 	free(line);
 	return (status);

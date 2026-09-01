@@ -2,3 +2,4 @@ hsh
 /temp
 *.out
 main.c
+tests

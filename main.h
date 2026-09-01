@@ -1,6 +1,9 @@
 #ifndef _SIMPLE_SHELL_H_
 #define _SIMPLE_SHELL_H_
 
+#define TRUE 1
+#define FALSE 0
+
 char **split_string(int size, char *string);
 char *read_line(void);
 int execute_command(char *command);
