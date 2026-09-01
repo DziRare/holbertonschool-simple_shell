@@ -48,6 +48,7 @@ int main(void)
 {
 	char *line;
 	int status;
+	char **args;
 
 	status = 0;
 	signal(SIGINT, SIG_IGN);
@@ -60,7 +61,17 @@ int main(void)
 		if (built_ins(line, &status))
 			continue;
 
-		status = execute_command(strtok(line, "\0"));
+		args = path_checker(line);
+		if (args[0] == NULL)
+		{
+			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+			free(args[0]);
+			free(args);
+			status = 127;
+			continue;
+		}
+
+		execute_command(args);
 		free(line);
 	}
 
