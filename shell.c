@@ -66,7 +66,7 @@ int main(void)
 			continue;
 
 		args = path_checker(line);
-		if(args == NULL)
+		if (args == NULL)
 		{
 			fprintf(stderr, "./hsh: 1: %s: not found\n", line);
 			status = 127;

@@ -64,19 +64,24 @@ char *read_line(void)
 
 	/* Prompt command from user */
 	read = getline(&buffer, &buffsize, stdin);
-	printf("Size: %ld\n", read);
 
 	/* Check input if EOF */
-	if (read == -1 || read == 1)
+	if (read == -1)
 	{
 		free(buffer);
 		return (NULL);
 	}
 
+	if (read == 1)
+	{
+		free(buffer);
+		return ("");
+	}
+
 	trim(buffer);
 
 	/* Check input if only white space */
-	if (buffer[0] == '\0' || buffer[0] == '\n')
+	if (read == 1 || buffer[0] == '\0' || buffer[0] == '\n')
 	{
 		free(buffer);
 		return ("");

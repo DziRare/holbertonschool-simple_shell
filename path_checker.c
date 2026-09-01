@@ -124,7 +124,9 @@ char **path_checker(char *input)
 	if (strchr(command, '/') != NULL)
 	{
 		if (stat(command, &st) == 0)
+		{
 			return (args);
+		}
 		else
 		{
 			free(args);
