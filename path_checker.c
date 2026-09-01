@@ -139,6 +139,7 @@ char **path_checker(char *input)
 			strcpy(args[0], command);
 			return (args);
 		}
+		return (NULL);
 	}
 
 	path = path_finder();
