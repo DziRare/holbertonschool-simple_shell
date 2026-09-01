@@ -59,7 +59,7 @@ char *read_line(void)
 	/* Check STDOUT is a tty */
 	if (isatty(STDIN_FILENO))
 	{
-		printf("( ͡° ͜ʖ ͡°)_/¯ ");
+		printf("╚( ⚆ ⌂ ☉)╝ ");
 	}
 
 	/* Prompt command from user */
