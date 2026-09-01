@@ -1,0 +1,44 @@
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+
+echo "-----------------------START OF TESTS-----------------------"
+
+echo "---------------------------------------------------"
+echo "TEST 1: RUN ls"
+echo "ls" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 2: RUN /bin/ls"
+echo "/bin/ls" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 3: RUN Invalid"
+echo "Invalid" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 4: RUN /Invalid"
+echo "/Invalid" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 5: RUN env"
+echo "env" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 6: RUN ''"
+echo "" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 7: RUN ' '"
+echo ' ' | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 8: RUN ls with leading and trailing whitespace"
+echo "   ls   " | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 9: RUN exit"
+echo "exit" | ./hsh
+
+echo "---------------------------------------------------"
+echo "TEST 10: RUN ls and exit"
+echo "ls
+exit" | ./hsh
