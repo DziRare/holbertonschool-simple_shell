@@ -80,7 +80,7 @@ char *path_finder(void)
 
 	while (environ[i] != NULL)
 	{
-		env = malloc(sizeof(char) * strlen(environ[i]) + 1);
+		env = malloc(sizeof(char) * (strlen(environ[i]) + 1));
 		strcpy(env, environ[i]);
 		token = strtok(env, "=");
 		if (strcmp(token, "PATH") == 0)
@@ -126,7 +126,10 @@ char **path_checker(char *input)
 		if (stat(command, &st) == 0)
 			return (args);
 		else
+		{
+			free(args);
 			return (NULL);
+		}
 	}
 
 	path = path_finder();

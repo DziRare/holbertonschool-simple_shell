@@ -41,8 +41,7 @@ int execute_command(char **args)
 	}
 	else
 	{
-		if (strchr(args[0], '/') == NULL)
-			free(args[0]);
+		free(args[0]);
 		free(args);
 		wait(&status);
 		if (WIFEXITED(status))
