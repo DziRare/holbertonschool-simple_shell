@@ -47,6 +47,7 @@ char **split_string(int size, char *string)
 	array = malloc(sizeof(string) * size);
 	if (array == NULL || size == 0)
 	{
+		free(string);
 		return (NULL);
 	}
 
@@ -85,7 +86,10 @@ char *path_finder(void)
 		token = strtok(env, "=");
 		if (strcmp(token, "PATH") == 0)
 		{
-			path = strtok(NULL, "=");
+			token = strtok(NULL, "=");
+			path = malloc(sizeof(char) * (strlen(token) + 1));
+            strcpy(path, token);
+			free (env);
 			break;
 		}
 		i++;
@@ -111,6 +115,7 @@ char *path_finder(void)
 char **path_checker(char *input)
 {
 	char *path;
+	char *token;
 	char **args;
 	char *full_path;
 	char *command;
@@ -135,22 +140,27 @@ char **path_checker(char *input)
 	}
 
 	path = path_finder();
-	path = strtok(path, ":");
-	while (path != NULL)
+	token = strtok(path, ":");
+	while (token != NULL)
 	{
-		full_path = malloc(sizeof(char) * (strlen(path) + strlen(command) + 2));
+		full_path = malloc(sizeof(char) * (strlen(token) + strlen(command) + 2));
 		full_path[0] = '\0';
-		strcat(full_path, path);
+		strcat(full_path, token);
 		strcat(full_path, "/");
 		strcat(full_path, command);
 
 		if (stat(full_path, &st) == 0)
 		{
 			args[0] = full_path;
+			free (input);
+			free (path);
 			return (args);
 		}
-		path = strtok(NULL, ":");
+		token = strtok(NULL, ":");
 		free(full_path);
+		full_path = NULL;
 	}
+	free (path);
+	free (args);
 	return (NULL);
 }
