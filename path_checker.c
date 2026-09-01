@@ -40,10 +40,7 @@ char *path_finder(void)
 		return (NULL);
 	}
 
-	token = strtok(path, ":");
-
-	free(env);
-	return (token);
+	return (path);
 }
 
 /**
@@ -54,7 +51,7 @@ char *path_finder(void)
  */
 char *path_checker(char *command)
 {
-	char *token;
+	char *path;
 	char *full_path;
 	struct stat st;
 
@@ -70,13 +67,13 @@ char *path_checker(char *command)
 		}
 	}
 
-	token = path_finder();
-
-	while (token != NULL)
+	path = path_finder();
+	path = strtok(path, ":");
+	while (path != NULL)
 	{
-		full_path = malloc(sizeof(char) * (strlen(token) + strlen(command) + 2));
+		full_path = malloc(sizeof(char) * (strlen(path) + strlen(command) + 2));
 		full_path[0] = '\0';
-		strcat(full_path, token);
+		strcat(full_path, path);
 		strcat(full_path, "/");
 		strcat(full_path, command);
 
@@ -85,7 +82,7 @@ char *path_checker(char *command)
 			return (full_path);
 		}
 
-		token = strtok(NULL, ":");
+		path = strtok(NULL, ":");
 		free(full_path);
 	}
 
