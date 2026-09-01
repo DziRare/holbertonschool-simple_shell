@@ -104,7 +104,7 @@ char *path_finder(void)
 
 /**
  * path_checker - Checks the command against the PATH
- * @command: Instruction user is attempting to perform
+ * @input: Instruction user is attempting to perform
  *
  * Return: Full executable path
  */

@@ -8,18 +8,17 @@
 
 /**
  * execute_command - Run commands
- * @command: Command that user is attempting to run
+ * @args: Array containing command, path and arguemnts
+ *
  * Return: status
  */
 int execute_command(char **args)
 {
 	pid_t child;
-	char *full_path;
 	int status;
 	int exit_status;
 	char *env[] = {"PATH=/bin/", NULL};
 
-	full_path = args[0];
 	status = 0;
 
 	child = fork();
@@ -32,7 +31,7 @@ int execute_command(char **args)
 
 	if (child == 0)
 	{
-		if (execve(full_path, args, env) == -1)
+		if (execve(args[0], args, env) == -1)
 		{
 			printf("%s\n", full_path);
 			perror("Error");
@@ -44,7 +43,7 @@ int execute_command(char **args)
 	else
 	{
 		if (strchr(args[0], '/') == NULL)
-			free(full_path);
+			free(agrs[0]);
 		free(args);
 		wait(&status);
 		if (WIFEXITED(status))
