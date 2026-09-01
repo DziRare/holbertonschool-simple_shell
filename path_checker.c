@@ -76,7 +76,7 @@ char *path_checker(char *command)
 		strcat(full_path, path);
 		strcat(full_path, "/");
 		strcat(full_path, command);
-		
+
 		if (stat(full_path, &st) == 0)
 		{
 			return (full_path);
