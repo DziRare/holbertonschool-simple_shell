@@ -41,9 +41,9 @@ int execute_command(char **args)
 	}
 	else
 	{
+		wait(&status);
 		free(args[0]);
 		free(args);
-		wait(&status);
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);

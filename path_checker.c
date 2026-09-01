@@ -88,8 +88,8 @@ char *path_finder(void)
 		{
 			token = strtok(NULL, "=");
 			path = malloc(sizeof(char) * (strlen(token) + 1));
-            strcpy(path, token);
-			free (env);
+			strcpy(path, token);
+			free(env);
 			break;
 		}
 		i++;
@@ -130,12 +130,14 @@ char **path_checker(char *input)
 	{
 		if (stat(command, &st) == 0)
 		{
+			args[0] = malloc(strlen(command) + 1);
+			if (args[0] == NULL)
+			{
+				free(args);
+				return (NULL);
+			}
+			strcpy(args[0], command);
 			return (args);
-		}
-		else
-		{
-			free(args);
-			return (NULL);
 		}
 	}
 
@@ -152,15 +154,14 @@ char **path_checker(char *input)
 		if (stat(full_path, &st) == 0)
 		{
 			args[0] = full_path;
-			free (input);
-			free (path);
+			free(path);
 			return (args);
 		}
 		token = strtok(NULL, ":");
 		free(full_path);
 		full_path = NULL;
 	}
-	free (path);
-	free (args);
+	free(path);
+	free(args);
 	return (NULL);
 }

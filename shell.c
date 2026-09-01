@@ -76,14 +76,13 @@ int main(void)
 		if (args[0] == NULL)
 		{
 			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
-			free(args[0]);
 			free(args);
 			free(line);
 			status = 127;
 			continue;
 		}
-
 		execute_command(args);
+		free(line);
 	}
 
 	if (isatty(STDIN_FILENO))
