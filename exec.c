@@ -17,7 +17,6 @@ int execute_command(char **args)
 	pid_t child;
 	int status;
 	int exit_status;
-	char *env[] = {"PATH=/bin/", NULL};
 
 	status = 0;
 
@@ -30,7 +29,7 @@ int execute_command(char **args)
 
 	if (child == 0)
 	{
-		if (execve(args[0], args, env) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
 			perror("Error");
 			return (status);
