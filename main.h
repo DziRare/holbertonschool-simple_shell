@@ -7,7 +7,7 @@
 char **split_string(char *string);
 char *read_line(void);
 int execute_command(char **args);
-char **line_checker(char *input);
+char *line_checker(char *input);
 int fork(void);
 
 extern char **environ;

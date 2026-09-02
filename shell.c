@@ -100,7 +100,6 @@ int main(void)
 	char *line;
 	int status;
 	char **args;
-	int valid_instruction;
 
 	status = 0;
 	signal(SIGINT, SIG_IGN);

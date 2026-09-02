@@ -5,53 +5,6 @@
 #include "main.h"
 
 /**
- * split_string - splits string into array
- * @string: string input
- * @size: size of array
- *
- * Return: array of string, NULL otherwise
- */
-char **split_string(char *string)
-{
-	char **array;
-	char *token;
-	int i;
-	int array_size;
-
-	i = 0;
-	array_size = 1;
-
-	while (string[i] != '\0' && string != NULL)
-	{
-		if (string[i] == ' ')
-		{
-			array_size = array_size + 1;
-		}
-		i = i + 1;
-	}
-	array_size = array_size + 1;
-
-	array = malloc(sizeof(string) * array_size);
-	if (array == NULL)
-	{
-		free(string);
-		return (NULL);
-	}
-
-	token = strtok(string, " ");
-	i = 0;
-	while (i < array_size - 1)
-	{
-		array[i] = token;
-		token = strtok(NULL, " ");
-		i = i + 1;
-	}
-	array[i] = NULL;
-
-	return (array);
-}
-
-/**
  * path_finder - find path in env variables
  *
  * Return: path if found, NULL otherwise
@@ -99,13 +52,11 @@ char *path_finder(void)
  *
  * Return: array or args for execve, NULL otherwise
  */
-char **line_checker(char *instruction)
+char *line_checker(char *instruction)
 {
 	char *path;
 	char *token;
-	char **args;
 	char *full_path;
-	char *command;
 	struct stat st;
 
 	if (strchr(instruction, '/') != NULL)
@@ -129,9 +80,9 @@ char **line_checker(char *instruction)
 
 		if (stat(full_path, &st) == 0)
 		{
-			args[0] = full_path;
+			instruction = full_path;
 			free(path);
-			return (args);
+			return (instruction);
 		}
 		token = strtok(NULL, ":");
 		free(full_path);
