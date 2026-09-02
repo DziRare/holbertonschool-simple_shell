@@ -126,7 +126,7 @@ int main(void)
 			free(args);
 			continue;
 		}
-		execute_command(args);
+		status = execute_command(args);
 		if (strchr(line, '/') == NULL)
 			free(args[0]);
 		free(line);
