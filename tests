@@ -9,37 +9,49 @@ echo "ls" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 2: RUN /bin/ls"
-echo "/bin/ls" | ./hsh
+echo "/bin/ls
+/invalid" | ./hsh
+echo "/bin/ls
+/invalid" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 3: RUN Invalid"
 echo "Invalid" | ./hsh
+echo "Invalid" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 4: RUN /Invalid"
 echo "/Invalid" | ./hsh
+echo "/Invalid" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 5: RUN env"
 echo "env" | ./hsh
+echo "env" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 6: RUN ''"
 echo "" | ./hsh
+echo "" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 7: RUN ' '"
 echo ' ' | ./hsh
+echo ' ' | sh
 
 echo "---------------------------------------------------"
 echo "TEST 8: RUN ls with leading and trailing whitespace"
 echo "   ls   " | ./hsh
+echo "   ls   " | sh
 
 echo "---------------------------------------------------"
 echo "TEST 9: RUN exit"
 echo "exit" | ./hsh
+echo "exit" | sh
 
 echo "---------------------------------------------------"
 echo "TEST 10: RUN ls and exit"
 echo "ls
 exit" | ./hsh
+echo "ls
+exit" | sh
