@@ -48,6 +48,7 @@ char **split_string(char *string)
 		token = strtok(NULL, " ");
 		i = i + 1;
 	}
+
 	array[i] = NULL;
 
 	return (array);
@@ -115,23 +116,26 @@ int main(void)
 		args = split_string(line);
 		args[0] = line_checker(args[0]);
 
-		if (line_checker(args[0]) == NULL)
+		if (args[0] == NULL)
 		{
-			if (strchr(args[0], '/') == NULL)
+			if (strchr(line, '/') == NULL)
 				fprintf(stderr, "./hsh: 1: %s: command not found\n", line);
 			else
 				fprintf(stderr, "./hsh: 1: %s: No such file or directory\n", line);
 			status = 127;
 			free(line);
+			free(args);
 			continue;
 		}
 		execute_command(args);
+		if (strchr(line, '/') == NULL)
+			free(args[0]);
 		free(line);
+		free(args);
 	}
 
 	if (isatty(STDIN_FILENO))
 		printf("exit\n");
 
-	free(line);
 	return (status);
 }

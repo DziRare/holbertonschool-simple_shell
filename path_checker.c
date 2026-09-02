@@ -28,19 +28,17 @@ char *path_finder(void)
 		{
 			token = strtok(NULL, "=");
 			path = malloc(sizeof(char) * (strlen(token) + 1));
+			if (path == NULL || token == NULL)
+			{
+				free(env);
+				return (NULL);
+			}
 			strcpy(path, token);
 			free(env);
 			break;
 		}
-		i++;
+		i = i + 1;
 		free(env);
-		env = NULL;
-	}
-
-	if (path == NULL)
-	{
-		free(env);
-		return (NULL);
 	}
 
 	return (path);
@@ -69,6 +67,10 @@ char *line_checker(char *instruction)
 	}
 
 	path = path_finder();
+
+	if (path == NULL)
+		return (NULL);
+
 	token = strtok(path, ":");
 	while (token != NULL)
 	{
@@ -80,9 +82,8 @@ char *line_checker(char *instruction)
 
 		if (stat(full_path, &st) == 0)
 		{
-			instruction = full_path;
 			free(path);
-			return (instruction);
+			return (full_path);
 		}
 		token = strtok(NULL, ":");
 		free(full_path);
