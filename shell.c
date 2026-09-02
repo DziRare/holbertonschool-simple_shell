@@ -9,7 +9,6 @@
 /**
  * split_string - splits string into array
  * @string: string input
- * @size: size of array
  *
  * Return: array of string, NULL otherwise
  */

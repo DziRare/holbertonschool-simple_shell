@@ -45,10 +45,10 @@ char *path_finder(void)
 }
 
 /**
- * line_checker - Transforms input string to array for execve
- * @input: Input string from read_line
+ * line_checker - validating input instruction/command
+ * @instruction:  input instruction/command
  *
- * Return: array or args for execve, NULL otherwise
+ * Return: executable string, NULL otherwise
  */
 char *line_checker(char *instruction)
 {
