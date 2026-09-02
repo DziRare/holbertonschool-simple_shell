@@ -10,9 +10,9 @@
  */
 void trim(char *input)
 {
-	int i;
+	size_t i;
 	int j;
-	int input_len;
+	size_t input_len;
 
 	i = 0;
 	j = 0;
@@ -22,6 +22,12 @@ void trim(char *input)
 	while (input[i] == ' ')
 	{
 		i = i + 1;
+	}
+
+	if (input_len == i + 1)
+	{
+		input[0] = '\0';
+		return;
 	}
 
 	/* Shifting characters of string to remove leading spaces*/
@@ -81,7 +87,7 @@ char *read_line(void)
 	trim(buffer);
 
 	/* Check input if only white space */
-	if (read == 1 || buffer[0] == '\0' || buffer[0] == '\n')
+	if (buffer[0] == '\0' || buffer[0] == '\n')
 	{
 		free(buffer);
 		return ("");
