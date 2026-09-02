@@ -99,7 +99,7 @@ char *path_finder(void)
  *
  * Return: array or args for execve, NULL otherwise
  */
-char **line_checker(char *input)
+char **line_checker(char *instruction)
 {
 	char *path;
 	char *token;
@@ -108,21 +108,11 @@ char **line_checker(char *input)
 	char *command;
 	struct stat st;
 
-	args = split_string(input);
-	command = args[0];
-
-	if (strchr(command, '/') != NULL)
+	if (strchr(instruction, '/') != NULL)
 	{
-		if (stat(command, &st) == 0)
+		if (stat(instruction, &st) == 0)
 		{
-			args[0] = malloc(strlen(command) + 1);
-			if (args[0] == NULL)
-			{
-				free(args);
-				return (NULL);
-			}
-			strcpy(args[0], command);
-			return (args);
+			return (instruction);
 		}
 		return (NULL);
 	}
@@ -131,11 +121,11 @@ char **line_checker(char *input)
 	token = strtok(path, ":");
 	while (token != NULL)
 	{
-		full_path = malloc(sizeof(char) * (strlen(token) + strlen(command) + 2));
+		full_path = malloc(sizeof(char) * (strlen(token) + strlen(instruction) + 2));
 		full_path[0] = '\0';
 		strcat(full_path, token);
 		strcat(full_path, "/");
-		strcat(full_path, command);
+		strcat(full_path, instruction);
 
 		if (stat(full_path, &st) == 0)
 		{
@@ -148,6 +138,5 @@ char **line_checker(char *input)
 		full_path = NULL;
 	}
 	free(path);
-	free(args);
 	return (NULL);
 }

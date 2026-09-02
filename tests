@@ -2,54 +2,56 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 echo "-----------------------START OF TESTS-----------------------"
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 1------------------------"
 echo "TEST 1: RUN ls"
+echo "RUN ls (GOT OUTPUT)"
 echo "ls" | ./hsh
+echo "RUN ls (EXPECTED OUTPUT)"
 echo "ls" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 2------------------------"
 echo "TEST 2: RUN /bin/ls"
 echo "/bin/ls
 /invalid" | ./hsh
 echo "/bin/ls
 /invalid" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 3------------------------"
 echo "TEST 3: RUN Invalid"
 echo "Invalid" | ./hsh
 echo "Invalid" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 4------------------------"
 echo "TEST 4: RUN /Invalid"
 echo "/Invalid" | ./hsh
 echo "/Invalid" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 5------------------------"
 echo "TEST 5: RUN env"
 echo "env" | ./hsh
 echo "env" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 6------------------------"
 echo "TEST 6: RUN ''"
 echo "" | ./hsh
 echo "" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 7------------------------"
 echo "TEST 7: RUN ' '"
 echo ' ' | ./hsh
 echo ' ' | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 8------------------------"
 echo "TEST 8: RUN ls with leading and trailing whitespace"
 echo "   ls   " | ./hsh
 echo "   ls   " | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 9------------------------"
 echo "TEST 9: RUN exit"
 echo "exit" | ./hsh
 echo "exit" | sh
 
-echo "---------------------------------------------------"
+echo "----------------------TEST 10------------------------"
 echo "TEST 10: RUN ls and exit"
 echo "ls
 exit" | ./hsh

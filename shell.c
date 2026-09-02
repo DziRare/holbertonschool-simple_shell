@@ -7,6 +7,53 @@
 #include <string.h>
 
 /**
+ * split_string - splits string into array
+ * @string: string input
+ * @size: size of array
+ *
+ * Return: array of string, NULL otherwise
+ */
+char **split_string(char *string)
+{
+	char **array;
+	char *token;
+	int i;
+	int array_size;
+
+	i = 0;
+	array_size = 1;
+
+	while (string[i] != '\0' && string != NULL)
+	{
+		if (string[i] == ' ')
+		{
+			array_size = array_size + 1;
+		}
+		i = i + 1;
+	}
+	array_size = array_size + 1;
+
+	array = malloc(sizeof(string) * array_size);
+	if (array == NULL)
+	{
+		free(string);
+		return (NULL);
+	}
+
+	token = strtok(string, " ");
+	i = 0;
+	while (i < array_size - 1)
+	{
+		array[i] = token;
+		token = strtok(NULL, " ");
+		i = i + 1;
+	}
+	array[i] = NULL;
+
+	return (array);
+}
+
+/**
  * built_ins - checks and executes command if built
  * @line: input string
  * @status: exit status
@@ -53,6 +100,7 @@ int main(void)
 	char *line;
 	int status;
 	char **args;
+	int valid_instruction;
 
 	status = 0;
 	signal(SIGINT, SIG_IGN);
@@ -65,10 +113,12 @@ int main(void)
 		if (built_ins(line, &status))
 			continue;
 
-		args = line_checker(line);
-		if (args == NULL)
+		args = split_string(line);
+		args[0] = line_checker(args[0]);
+
+		if (line_checker(args[0]) == NULL)
 		{
-			if (strchr(line, '/') == NULL)
+			if (strchr(args[0], '/') == NULL)
 				fprintf(stderr, "./hsh: 1: %s: command not found\n", line);
 			else
 				fprintf(stderr, "./hsh: 1: %s: No such file or directory\n", line);
