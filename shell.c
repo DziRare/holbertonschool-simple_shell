@@ -65,7 +65,7 @@ int main(void)
 		if (built_ins(line, &status))
 			continue;
 
-		args = path_checker(line);
+		args = line_checker(line);
 		if (args == NULL)
 		{
 			if (strchr(line, '/') == NULL)

@@ -4,10 +4,10 @@
 #define TRUE 1
 #define FALSE 0
 
-char **split_string(int size, char *string);
+char **split_string(char *string);
 char *read_line(void);
 int execute_command(char **args);
-char **path_checker(char *input);
+char **line_checker(char *input);
 int fork(void);
 
 extern char **environ;

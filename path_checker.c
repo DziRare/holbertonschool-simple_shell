@@ -5,47 +5,34 @@
 #include "main.h"
 
 /**
- * array_size - finds the size of the array
- * @input: input string
- *
- * Return: size of array
- */
-int array_size(char *input)
-{
-	int size;
-	int i;
-
-	i = 0;
-	size = 1;
-
-	while (input[i] != '\0' && input != NULL)
-	{
-		if (input[i] == ' ')
-		{
-			size = size + 1;
-		}
-		i = i + 1;
-	}
-	size = size + 1;
-
-	return (size);
-}
-
-/**
  * split_string - splits string into array
  * @string: string input
  * @size: size of array
  *
  * Return: array of string, NULL otherwise
  */
-char **split_string(int size, char *string)
+char **split_string(char *string)
 {
 	char **array;
 	char *token;
 	int i;
+	int array_size;
 
-	array = malloc(sizeof(string) * size);
-	if (array == NULL || size == 0)
+	i = 0;
+	array_size = 1;
+
+	while (string[i] != '\0' && string != NULL)
+	{
+		if (string[i] == ' ')
+		{
+			array_size = array_size + 1;
+		}
+		i = i + 1;
+	}
+	array_size = array_size + 1;
+
+	array = malloc(sizeof(string) * array_size);
+	if (array == NULL)
 	{
 		free(string);
 		return (NULL);
@@ -53,7 +40,7 @@ char **split_string(int size, char *string)
 
 	token = strtok(string, " ");
 	i = 0;
-	while (i < size - 1)
+	while (i < array_size - 1)
 	{
 		array[i] = token;
 		token = strtok(NULL, " ");
@@ -107,23 +94,21 @@ char *path_finder(void)
 }
 
 /**
- * path_checker - Checks the command against the PATH
- * @input: Instruction user is attempting to perform
+ * line_checker - Transforms input string to array for execve
+ * @input: Input string from read_line
  *
- * Return: Full executable path
+ * Return: array or args for execve, NULL otherwise
  */
-char **path_checker(char *input)
+char **line_checker(char *input)
 {
 	char *path;
 	char *token;
 	char **args;
 	char *full_path;
 	char *command;
-	int size;
 	struct stat st;
 
-	size = array_size(input);
-	args = split_string(size, input);
+	args = split_string(input);
 	command = args[0];
 
 	if (strchr(command, '/') != NULL)
