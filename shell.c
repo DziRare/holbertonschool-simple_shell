@@ -68,17 +68,12 @@ int main(void)
 		args = path_checker(line);
 		if (args == NULL)
 		{
-			fprintf(stderr, "./hsh: 1: %s: not found\n", line);
+			if (strchr(line, '/') == NULL)
+				fprintf(stderr, "./hsh: 1: %s: command not found\n", line);
+			else
+				fprintf(stderr, "./hsh: 1: %s: No such file or directory\n", line);
 			status = 127;
 			free(line);
-			continue;
-		}
-		if (args[0] == NULL)
-		{
-			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
-			free(args);
-			free(line);
-			status = 127;
 			continue;
 		}
 		execute_command(args);
