@@ -118,7 +118,7 @@ int main(void)
 		if (args[0] == NULL)
 		{
 			if (strchr(line, '/') == NULL)
-				fprintf(stderr, "./hsh: 1: %s: command not found\n", line);
+				fprintf(stderr, "./hsh: 1: %s: not found\n", line);
 			else
 				fprintf(stderr, "./hsh: 1: %s: No such file or directory\n", line);
 			status = 127;
