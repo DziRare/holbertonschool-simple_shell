@@ -28,7 +28,10 @@ char *path_finder(void)
 		{
 			token = strtok(NULL, "=");
 			if (token == NULL)
+			{
+				free(env);
 				return (NULL);
+			}
 			path = malloc(sizeof(char) * (strlen(token) + 1));
 			if (path == NULL || token == NULL)
 			{
