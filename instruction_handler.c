@@ -47,7 +47,7 @@ char *path_finder(void)
 }
 
 /**
- * instrution_validator - validating input instruction
+ * instruction_validator - validating input instruction
  * @instruction:  input instruction
  *
  * Return: executable file string, NULL otherwise

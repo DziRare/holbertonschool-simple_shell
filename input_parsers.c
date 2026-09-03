@@ -92,7 +92,7 @@ void trim(char *input)
 }
 
 /**
- * read_line - Retrieves user input
+ * input_handler - Retrieves user input
  *
  * Return: The command and it's arguments or NULL on failure
  */
