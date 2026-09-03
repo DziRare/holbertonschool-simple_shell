@@ -1,16 +1,37 @@
-# HSH(1)
+HSH(1)				Holberton School Shell				HSH(1)
 
-## NAME
+NAME
+	hsh - holberton shell, simple UNIX holberton command language interpreter
 
-hsh - Simple POSIX-compliant command interpreter
+SYNOPSIS
+	./hsh
 
-## SYNOPSIS
-sh [options]
+DESCRIPTION
+	hsh is a simplified version of a UNIX-like command interpreter (shell). It is implemented by compiling the files found in [Holberton Simple Shell Repository](https://github.com/DziRare/holbertonschool-simple_shell). Must be compilied in a valid UNIX-like shell. There are two ways to run the shell. In interactive and non-interactive mode. For interactive mode start the shell with ./hsh and enter any commands or executable /bin files to run along with their arguments. For non-interactive mode, run echo "{command and arguments}" | ./hsh.
 
-## DESCRIPTION
-hsh is a simplified version of a POSIX-compliant command interpreter (shell). It is implemented by compiling the files found in [Holberton Simple Shell Repository](https://github.com/DziRare/holbertonschool-simple_shell). Must be compilited in a valid UNIX-like shell.
+OPTIONS
+	There are no additional arguments or options for hsh.
 
-## FILES
+EXAMPLES
+	Interactive Mode
+	school@holbertonschool-simple-shell:/# ./hsh
+	╚( ⚆ ⌂ ☉)╝ ls
+	ABOUT yasmin_file zac_file jonathan_file brendan_file sebastion_file uliana_file aladar_file munya_file hsh
 
-## SEE ALSO
-bash(1), dash(1), ksh(1), tcsh(1), zsh(1), sh(1)
+	Non-Interactive Mode
+	school@holbertonschool-simple-shell:/# echo "ls" | ./hsh
+	ABOUT yasmin_file zac_file jonathan_file brendan_file sebastion_file uliana_file aladar_file munya_file hsh
+
+SEE ALSO
+	bash(1), dash(1), ksh(1), tcsh(1), zsh(1), sh(1)
+
+BUGS
+
+	SIGINT is not properly handled. Currently it is just ignored.
+
+AUTHOR
+	mmurare@yahoo.com.au
+	yasmin@yasmin.so
+
+COPYRIGHT
+	This shell is made for educational purposes under Holberton School
