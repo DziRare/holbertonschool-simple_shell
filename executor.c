@@ -27,7 +27,7 @@ int execute_command(char **args)
 	{
 		execve(args[0], args, environ);
 		perror("Error");
-		exit (status);
+		exit(status);
 	}
 	else
 	{
