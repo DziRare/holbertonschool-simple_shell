@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
 #include "main.h"
+#include <sys/stat.h>
 
 /**
  * path_finder - find path in env variables
@@ -50,12 +47,12 @@ char *path_finder(void)
 }
 
 /**
- * line_checker - validating input instruction/command
- * @instruction:  input instruction/command
+ * instrution_validator - validating input instruction
+ * @instruction:  input instruction
  *
- * Return: executable string, NULL otherwise
+ * Return: executable file string, NULL otherwise
  */
-char *line_checker(char *instruction)
+char *instruction_validator(char *instruction)
 {
 	char *path;
 	char *token;

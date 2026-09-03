@@ -1,62 +1,10 @@
 #include "main.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/wait.h>
 #include <signal.h>
-#include <string.h>
 
 /**
- * split_string - splits string into array
- * @string: string input
- *
- * Return: array of string, NULL otherwise
- */
-char **split_string(char *string)
-{
-	char **array;
-	char *token;
-	int i;
-	int array_size;
-
-	i = 0;
-	array_size = 1;
-
-	while (string[i] != '\0' && string != NULL)
-	{
-		if (string[i] == ' ')
-		{
-			array_size = array_size + 1;
-		}
-		i = i + 1;
-	}
-	array_size = array_size + 1;
-
-	array = malloc(sizeof(string) * array_size);
-	if (array == NULL)
-	{
-		free(string);
-		return (NULL);
-	}
-
-	token = strtok(string, " ");
-	i = 0;
-	while (i < array_size - 1)
-	{
-		array[i] = token;
-		token = strtok(NULL, " ");
-		i = i + 1;
-	}
-
-	array[i] = NULL;
-
-	return (array);
-}
-
-/**
- * built_ins - checks and executes command if built
+ * built_ins - checks if input is a built-in command and executes
  * @line: input string
- * @status: exit status
+ * @status: last status code
  *
  * Return: status code
  */
@@ -91,9 +39,9 @@ int built_ins(char *line, int *status)
 }
 
 /**
- * main - Simple shell runs commands without any argument
+ * main - Simple shell runs commands with arguments
  *
- * Return: Always 0
+ * Return: 0 on success, otherwise last status code
  */
 int main(void)
 {
@@ -104,7 +52,7 @@ int main(void)
 	status = 0;
 	signal(SIGINT, SIG_IGN);
 
-	while ((line = read_line()) != NULL)
+	while ((line = input_handler()) != NULL)
 	{
 		if (strcmp(line, "") == 0)
 			continue;
@@ -113,7 +61,7 @@ int main(void)
 			continue;
 
 		args = split_string(line);
-		args[0] = line_checker(args[0]);
+		args[0] = instruction_validator(args[0]);
 
 		if (args[0] == NULL)
 		{

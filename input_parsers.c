@@ -1,8 +1,51 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
 #include "main.h"
+
+/**
+ * split_string - splits input string into args array
+ * @string: string input
+ *
+ * Return: array of strings, NULL otherwise
+ */
+char **split_string(char *string)
+{
+	char **array;
+	char *token;
+	int i;
+	int array_size;
+
+	i = 0;
+	array_size = 1;
+
+	while (string[i] != '\0' && string != NULL)
+	{
+		if (string[i] == ' ')
+		{
+			array_size = array_size + 1;
+		}
+		i = i + 1;
+	}
+	array_size = array_size + 1;
+
+	array = malloc(sizeof(string) * array_size);
+	if (array == NULL)
+	{
+		free(string);
+		return (NULL);
+	}
+
+	token = strtok(string, " ");
+	i = 0;
+	while (i < array_size - 1)
+	{
+		array[i] = token;
+		token = strtok(NULL, " ");
+		i = i + 1;
+	}
+
+	array[i] = NULL;
+
+	return (array);
+}
 
 /**
  * trim - Remove whitespace from the start of string
@@ -53,7 +96,7 @@ void trim(char *input)
  *
  * Return: The command and it's arguments or NULL on failure
  */
-char *read_line(void)
+char *input_handler(void)
 {
 	char *buffer;
 	size_t buffsize;

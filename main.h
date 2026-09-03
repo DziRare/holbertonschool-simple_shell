@@ -4,10 +4,18 @@
 #define TRUE 1
 #define FALSE 0
 
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
 char **split_string(char *string);
-char *read_line(void);
+int built_ins(char *line, int *status);
+char *input_handler(void);
+void trim(char *input);
 int execute_command(char **args);
-char *line_checker(char *input);
+char *instruction_validator(char *instruction);
+char *path_finder(void);
 int fork(void);
 
 extern char **environ;

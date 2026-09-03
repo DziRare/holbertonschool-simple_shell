@@ -1,14 +1,10 @@
 #include "main.h"
-#include <stdio.h>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <stdlib.h>
-#include <string.h>
 #include <errno.h>
 
 /**
- * execute_command - Run commands
- * @args: Array containing command, path and arguemnts
+ * execute_command - Run executable file
+ * @args: Array containing executable file and arguemnts
  *
  * Return: status
  */
