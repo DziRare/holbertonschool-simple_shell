@@ -25,11 +25,9 @@ int execute_command(char **args)
 
 	if (child == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
-		{
-			perror("Error");
-			return (status);
-		}
+		execve(args[0], args, environ);
+		perror("Error");
+		exit (status);
 	}
 	else
 	{

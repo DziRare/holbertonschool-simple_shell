@@ -11,10 +11,8 @@ echo "ls" | sh
 
 echo "----------------------TEST 2------------------------"
 echo "TEST 2: RUN /bin/ls"
-echo "/bin/ls
-/invalid" | ./hsh
-echo "/bin/ls
-/invalid" | sh
+echo "/bin/ls" | ./hsh
+echo "/bin/ls" | sh
 
 echo "----------------------TEST 3------------------------"
 echo "TEST 3: RUN Invalid"
