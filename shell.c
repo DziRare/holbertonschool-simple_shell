@@ -11,7 +11,6 @@ int _atoi(char *str)
 	int i = 0;
 	int digit;
 
-	// Iterate through the string and add integers
 	while (str[i] != '\0')
 	{
 		if (i == 0 && str[i] == '-')
