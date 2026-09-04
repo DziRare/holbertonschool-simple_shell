@@ -97,6 +97,7 @@ int built_ins(char *line, int *status)
 		return (TRUE);
 	}
 
+	free(line_copy);
 	return (FALSE);
 }
 
@@ -122,7 +123,6 @@ int main(void)
 		if (built_ins(line, &status))
 			continue;
 
-		printf("Arguments: %s\n", line);
 		args = split_string(line);
 		args[0] = instruction_validator(args[0]);
 
