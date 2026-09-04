@@ -2,7 +2,11 @@
 #include <signal.h>
 
 /**
- * _atoi
+ * _atoi - Turns ASCII value into an integer value
+ * @str: Array of ascii characters to convert into integers
+ *
+ * Return: The converted integer value (exit code) on success,
+ * otherwise -1 on failure
  */
 int _atoi(char *str)
 {
@@ -22,8 +26,8 @@ int _atoi(char *str)
 		digit = str[i] - '0';
 		if (digit < 0 || digit > 9)
 		{
-			printf("./hsh: exit: %s: numeric arguent required\n", str);
-			return (-1); 
+			fprintf(stderr, "./hsh: 1: exit: %s: numeric arguent required\n", str);
+			return (-1);
 		}
 
 		number = number * 10 + digit;
@@ -32,11 +36,11 @@ int _atoi(char *str)
 
 	if (str[0] == '-')
 	{
-		printf("./hsh: exit: Illegal number: %s\n", str);
-		return (-1); 
+		fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", str);
+		return (-1);
 	}
 
-	return number;
+	return (number);
 }
 
 /**
@@ -50,23 +54,32 @@ int built_ins(char *line, int *status)
 {
 	int i;
 	char *exit_code;
+	char *line_copy;
 
-	if (strcmp(strtok(line, " "), "exit") == 0)
+	line_copy = malloc(sizeof(char) * (strlen(line) + 1));
+	strcpy(line_copy, line);
+
+	if (strcmp(strtok(line_copy, " "), "exit") == 0)
 	{
 		if (isatty(STDIN_FILENO))
 		{
 			printf("exit\n");
 		}
-		if ((exit_code = strtok(NULL, " ")) != NULL)
+
+		exit_code = strtok(NULL, " ");
+		if (exit_code != NULL)
 		{
 			*status = _atoi(exit_code);
 			if (*status == -1)
 			{
 				*status = 2;
+				free(line_copy);
+				free(line);
 				return (TRUE);
 			}
 		}
 
+		free(line_copy);
 		free(line);
 		exit(*status);
 	}
@@ -79,6 +92,7 @@ int built_ins(char *line, int *status)
 			i = i + 1;
 		}
 		*status = 0;
+		free(line_copy);
 		free(line);
 		return (TRUE);
 	}
@@ -108,6 +122,7 @@ int main(void)
 		if (built_ins(line, &status))
 			continue;
 
+		printf("Arguments: %s\n", line);
 		args = split_string(line);
 		args[0] = instruction_validator(args[0]);
 
