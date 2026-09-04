@@ -32,6 +32,24 @@ int _atoi(char *str)
 }
 
 /**
+ * _get_env - prints all the environment functions
+ *
+ * Return: 0 for success
+ */
+int _get_env(void)
+{
+	int i;
+
+	i = 0;
+	while (environ[i] != NULL)
+	{
+		printf("%s\n", environ[i]);
+		i = i + 1;
+	}
+	return (0);
+}
+
+/**
  * built_ins - checks if input is a built-in command and executes
  * @line: input string
  * @status: last status code
@@ -40,7 +58,6 @@ int _atoi(char *str)
  */
 int built_ins(char *line, int *status)
 {
-	int i;
 	char *exit_code;
 	char *line_copy;
 
@@ -50,9 +67,7 @@ int built_ins(char *line, int *status)
 	if (strcmp(strtok(line_copy, " "), "exit") == 0)
 	{
 		if (isatty(STDIN_FILENO))
-		{
 			printf("exit\n");
-		}
 
 		exit_code = strtok(NULL, " ");
 		if (exit_code != NULL)
@@ -73,13 +88,7 @@ int built_ins(char *line, int *status)
 	}
 	else if (strcmp(line, "env") == 0)
 	{
-		i = 0;
-		while (environ[i] != NULL)
-		{
-			printf("%s\n", environ[i]);
-			i = i + 1;
-		}
-		*status = 0;
+		*status = _get_env();
 		free(line_copy);
 		free(line);
 		return (TRUE);
