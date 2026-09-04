@@ -2,6 +2,42 @@
 #include <signal.h>
 
 /**
+ * _atoi
+ */
+int _atoi(char *str)
+{
+
+	int number = 0;
+	int i = 0;
+	int digit;
+
+	// Iterate through the string and add integers
+	while (str[i] != '\0')
+	{
+		if (i == 0 && str[i] == '-')
+		{
+			i++;
+			continue;
+		}
+
+		digit = str[i] - '0';
+		if (digit < 0 || digit > 9)
+		{
+			printf("./hsh: exit: %s: numeric arguent required\n", str);
+			return (-1); 
+		}
+
+		number = number * 10 + digit;
+		i++;
+	}
+
+	if (str[0] == '-')
+		number = number * -1;	
+
+	return number;
+}
+
+/**
  * built_ins - checks if input is a built-in command and executes
  * @line: input string
  * @status: last status code
@@ -11,12 +47,22 @@
 int built_ins(char *line, int *status)
 {
 	int i;
+	char *exit_code;
 
-	if (strcmp(line, "exit") == 0)
+	if (strcmp(strtok(line, " "), "exit") == 0)
 	{
 		if (isatty(STDIN_FILENO))
 		{
 			printf("exit\n");
+		}
+		if ((exit_code = strtok(NULL, " ")) != NULL)
+		{
+			*status = _atoi(exit_code);
+			if (*status == -1)
+			{
+				*status = 2;
+				return (TRUE);
+			}
 		}
 
 		free(line);
