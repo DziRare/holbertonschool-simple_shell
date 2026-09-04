@@ -99,6 +99,17 @@ int built_ins(char *line, int *status)
 }
 
 /**
+ * sigint_handler - handles signal interrupt (Ctrl + C)
+ * @signal: signal that is received
+ */
+void sigint_handler(int signal)
+{
+	(void) signal;
+	printf("\n╚( ⚆ ⌂ ☉)╝ ");
+	fflush(stdout);
+}
+
+/**
  * main - Simple shell runs commands with arguments
  *
  * Return: 0 on success, otherwise last status code
@@ -110,7 +121,7 @@ int main(void)
 	char **args;
 
 	status = 0;
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
 
 	while ((line = input_handler()) != NULL)
 	{
