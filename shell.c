@@ -31,7 +31,10 @@ int _atoi(char *str)
 	}
 
 	if (str[0] == '-')
-		number = number * -1;	
+	{
+		printf("./hsh: exit: Illegal number: %s\n", str);
+		return (-1); 
+	}
 
 	return number;
 }
