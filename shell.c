@@ -17,27 +17,15 @@ int _atoi(char *str)
 
 	while (str[i] != '\0')
 	{
-		if (i == 0 && str[i] == '-')
-		{
-			i++;
-			continue;
-		}
-
 		digit = str[i] - '0';
 		if (digit < 0 || digit > 9)
 		{
-			fprintf(stderr, "./hsh: 1: exit: %s: numeric arguent required\n", str);
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", str);
 			return (-1);
 		}
 
 		number = number * 10 + digit;
 		i++;
-	}
-
-	if (str[0] == '-')
-	{
-		fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", str);
-		return (-1);
 	}
 
 	return (number);
