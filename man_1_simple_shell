@@ -1,5 +1,5 @@
 .\" Manpage for hsh.
-.\" Don't contact to correct errors or typos.
+.\" Contact someone to correct errors or typos.
 .TH HSH 1 "03 Sept 2026" "1.0" "Holberton School Shell Manual"
 
 .SH NAME
@@ -34,7 +34,7 @@ ABOUT yasmin_file zac_file jonathan_file brendan_file sebastion_file uliana_file
 bash(1), dash(1), ksh(1), tcsh(1), zsh(1), sh(1)
 
 .SH BUGS
-SIGINT is not properly handled. Currently it is just ignored.
+Not all signals are handled properly.
 Formatting of this man page.
 
 .SH AUTHOR

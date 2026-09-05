@@ -71,7 +71,7 @@ Run the included test script to compile the project and compare `hsh`'s behavior
 - Cannot access previous commands via cursor.
 - Cannot use special characters E.g. `ls *.c` results in an error.
 - Cannot use arguments when starting shell.
-- Signals are not handled properly.
+- Not all signals are handled properly.
 
 ## Author(s)
 
