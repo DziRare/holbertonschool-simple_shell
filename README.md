@@ -64,6 +64,10 @@ Run the included test script to compile the project and compare `hsh`'s behavior
 ./tests
 ```
 
+## Codebase Flowchart
+
+<img width="7498" height="6534" alt="Flowchart (1)" src="https://github.com/user-attachments/assets/4018e509-fc71-4b49-9c6d-59e09f9b976e" />
+
 ## Limitations
 
 - Piping is not an added feature.
